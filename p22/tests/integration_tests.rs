@@ -4,10 +4,6 @@ use p22::calc;
 fn test_temperature_conversions() {
     assert_eq!(calc::celsius2farenheit(0), 32);
     assert_eq!(calc::farenheit2celsius(32), 0);
-
-    // Test round trips
-    //let c = 37;
-    //assert_eq!(calc::farenheit2celsius(calc::celsius2farenheit(c)), c);
 }
 
 #[test]
