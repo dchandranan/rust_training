@@ -1,5 +1,5 @@
 /// Converts Celsius to Fahrenheit
-/// 
+///
 /// # Examples
 /// ```
 /// use p22::calc::celsius2farenheit;
@@ -7,11 +7,11 @@
 /// assert_eq!(celsius2farenheit(100), 212);
 /// ```
 pub fn celsius2farenheit(celsius: i32) -> i32 {
-    (celsius * 9/5) + 32
+    (celsius * 9 / 5) + 32
 }
 
 /// Converts Fahrenheit to Celsius
-/// 
+///
 /// # Examples
 /// ```
 /// use p22::calc::farenheit2celsius;
@@ -19,11 +19,11 @@ pub fn celsius2farenheit(celsius: i32) -> i32 {
 /// assert_eq!(farenheit2celsius(212), 100);
 /// ```
 pub fn farenheit2celsius(farenheit: i32) -> i32 {
-    (farenheit - 32) * 5/9
+    (farenheit - 32) * 5 / 9
 }
 
 /// Calculates Fibonacci number using loop
-/// 
+///
 /// # Examples
 /// ```
 /// use p22::calc::fibonacci_loop;
@@ -47,7 +47,7 @@ pub fn fibonacci_loop(n: u32) -> u64 {
 }
 
 /// Calculates Fibonacci number using recursion
-/// 
+///
 /// # Examples
 /// ```
 /// use p22::calc::fibonacci_rec;
@@ -59,6 +59,6 @@ pub fn fibonacci_rec(n: u32) -> u64 {
     match n {
         0 => 0,
         1 => 1,
-        _ => fibonacci_rec(n-1) + fibonacci_rec(n-2)
+        _ => fibonacci_rec(n - 1) + fibonacci_rec(n - 2),
     }
 }

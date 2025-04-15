@@ -1,8 +1,8 @@
-#![feature(test)]  // Enable nightly feature for bencher
+#![feature(test)] // Enable nightly feature for bencher
 
 extern crate test;
-use test::Bencher;
 use p22::calc;
+use test::Bencher;
 
 #[bench]
 fn bench_fibonacci_loop(b: &mut Bencher) {
