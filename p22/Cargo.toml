@@ -2,7 +2,3 @@
 name = "p22"
 version = "0.1.0"
 edition = "2024"
-
-[[bin]]
-name = "twelve_days"
-path = "src/bin/twelve_days.rs"
