@@ -29,14 +29,14 @@ fn increased_by_first_item<'a>(data: &[usize], n: &'a mut usize) -> &'a mut usiz
 }
 
 // +++ Added lifetime to struct
-struct TwoValues<'a> {
+struct TwoValues<'a, 'b> {
     first: &'a usize,
-    second: &'a usize,
+    second: &'b usize,
 }
 
 // +++ Added lifetime to impl block
-impl<'a> TwoValues<'a> {
-    pub fn new(first: &'a usize, second: &'a usize) -> Self {
+impl<'a, 'b> TwoValues<'a, 'b> {
+    pub fn new(first: &'a usize, second: &'b usize) -> Self {
         Self { first, second }
     }
 
@@ -44,7 +44,7 @@ impl<'a> TwoValues<'a> {
         self.first
     }
 
-    pub fn get_second(&self) -> &'a usize {
+    pub fn get_second(&self) -> &'b usize {
         self.second
     }
 }

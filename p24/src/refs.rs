@@ -76,6 +76,7 @@ pub fn f4(slice: &[u32]) -> (&[u32], &[u32], &[u32], &[u32]) {
 
 #[cfg(test)]
 mod tests {
+
     use super::*;
 
     #[test]
