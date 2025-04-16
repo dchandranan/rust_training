@@ -1,15 +1,29 @@
 /// Mutable reference to first element if flag is false, second if true
-pub fn f1(tuple: &mut (u32, u32, bool)) -> &mut u32 {
-    if tuple.2 { &mut tuple.1 } else { &mut tuple.0 }
+///
+/// # Examples
+/// ```
+/// use p24::refs::f1;
+/// let mut tuple = (10, 20);
+/// *f1(&mut tuple, false) = 30;  // Modifies first element
+/// assert_eq!(tuple, (30, 20));
+///
+/// *f1(&mut tuple, true) = 40;   // Modifies second element
+/// assert_eq!(tuple, (30, 40));
+/// ```
+pub fn f1(tuple: &mut (u32, u32), flag: bool) -> &mut u32 {
+    if flag { &mut tuple.1 } else { &mut tuple.0 }
 }
 
 /// Returns mutable reference to n-th element in slice
+///
+/// # Panics
+/// Panics if index is out of bounds
 pub fn f2(slice: &mut [u32], n: usize) -> &mut u32 {
     &mut slice[n]
 }
 
 /// Returns mutable reference to n-th element from end
-/// ///
+///
 /// # Examples
 /// ```
 /// use p24::refs::f3;
@@ -18,6 +32,13 @@ pub fn f2(slice: &mut [u32], n: usize) -> &mut u32 {
 /// assert_eq!(arr, [1, 2, 3, 9, 5]);
 /// ```
 ///
+/// # Panics
+/// Panics if index is out of bounds
+/// ```should_panic
+/// use p24::refs::f3;
+/// let mut arr = [1, 2, 3];
+/// f3(&mut arr, 3);  // Only 3 elements (valid indices are 0-2 from end)
+/// ```
 pub fn f3(slice: &mut [u32], n: usize) -> &mut u32 {
     let idx = slice.len() - 1 - n;
     &mut slice[idx]
@@ -59,13 +80,13 @@ mod tests {
 
     #[test]
     fn test_f1() {
-        let mut tuple = (10, 20, false);
-        *f1(&mut tuple) = 30;
-        assert_eq!(tuple, (30, 20, false));
+        let mut tuple = (10, 20);
+        *f1(&mut tuple, false) = 30; // Modify first element
+        assert_eq!(tuple, (30, 20));
 
-        let mut tuple = (10, 20, true);
-        *f1(&mut tuple) = 30;
-        assert_eq!(tuple, (10, 30, true));
+        let mut tuple = (10, 20);
+        *f1(&mut tuple, true) = 30; // Modify second element
+        assert_eq!(tuple, (10, 30));
     }
 
     #[test]
