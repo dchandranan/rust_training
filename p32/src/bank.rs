@@ -71,7 +71,7 @@ impl Bank {
             if user.balance > 0 {
                 liabilities += user.balance as u64;
             } else {
-                assets += (-user.balance) as u64;
+                assets += user.balance.unsigned_abs();
             }
         }
 
@@ -100,19 +100,10 @@ impl Bank {
             .ok_or(TransferError::UserNotFound(to_name.to_string()))?;
 
         // Check if transfer is possible
-        if self.users[from_idx].balance < amount_i64 {
-            return Err(TransferError::InsufficientFunds(from_name.to_string()));
-        }
-
         if (self.users[from_idx].balance - amount_i64).unsigned_abs()
             > self.users[from_idx].credit_line
         {
             return Err(TransferError::CreditLimitExceeded(from_name.to_string()));
-        }
-
-        if (self.users[to_idx].balance + amount_i64).unsigned_abs() > self.users[to_idx].credit_line
-        {
-            return Err(TransferError::CreditLimitExceeded(to_name.to_string()));
         }
 
         // Execute transfer
@@ -203,7 +194,7 @@ mod tests {
         assert_eq!(bank.users[0].balance, 1500);
         assert_eq!(bank.users[1].balance, 0);
 
-        assert!(bank.transfer_funds("Alice", "Bob", 2000).is_err());
+        assert!(bank.transfer_funds("Alice", "Bob", 7500).is_err());
     }
 
     #[test]
