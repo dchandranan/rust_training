@@ -123,16 +123,22 @@ impl Bank {
     }
 
     pub fn accrue_interest(&mut self) {
+        use std::cmp::Ordering;
+
         for user in &mut self.users {
-            if user.balance > 0 {
-                // Debit interest with rounding
-                let interest = (user.balance * self.debit_interest as i64 + 5000) / 10000;
-                user.balance += interest;
-            } else if user.balance < 0 {
-                // Credit interest with rounding
-                let abs_balance = (-user.balance) as u64;
-                let interest = ((abs_balance * self.credit_interest + 5000) / 10000) as i64;
-                user.balance -= interest;
+            match user.balance.cmp(&0) {
+                Ordering::Greater => {
+                    // Debit interest with rounding
+                    let interest = (user.balance * self.debit_interest as i64 + 5000) / 10000;
+                    user.balance += interest;
+                }
+                Ordering::Less => {
+                    // Credit interest with rounding
+                    let abs_balance = (-user.balance) as u64;
+                    let interest = ((abs_balance * self.credit_interest + 5000) / 10000) as i64;
+                    user.balance -= interest;
+                }
+                Ordering::Equal => {} // No interest on zero balance
             }
         }
     }
