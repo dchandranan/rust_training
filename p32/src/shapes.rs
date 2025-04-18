@@ -266,7 +266,7 @@ mod tests {
 
     #[test]
     fn test_dynamic_shapes() {
-        let shapes = vec![
+        let shapes = [
             DynamicShape::Point(Point::new(0.0, 0.0)),
             DynamicShape::Circle(Circle::new(Point::new(0.0, 0.0), 2.0)),
         ];
